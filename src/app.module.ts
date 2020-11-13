@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './modules/users/users.module';
-import { User } from './modules/users/entities/user.entity';
-import { Photo } from './modules/users/entities/photo.entity';
+import { User } from './users/entities/user.entity';
+import { Photo } from './users/entities/photo.entity';
+import { UsersModule } from './users/users.module';
+import { auth } from './middlewares/auth.middleware';
 
 @Module({
   imports: [
@@ -25,4 +26,11 @@ import { Photo } from './modules/users/entities/photo.entity';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule implements NestModule { 
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(auth)
+      .exclude('/users/register')
+      .forRoutes({ path: '*', method: RequestMethod.ALL })
+  }
+}

@@ -8,10 +8,19 @@ import { Photo } from './users/entities/photo.entity';
 import { UsersModule } from './users/users.module';
 import { auth } from './middlewares/auth.middleware';
 import { ProductsModule } from './products/products.module';
+import { BullModule } from '@nestjs/bull';
+import { AudioModule } from './audio/audio.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
+    AudioModule,
     TypeOrmModule.forRoot({
     type: 'mysql',
     host: process.env.DB_HOST,

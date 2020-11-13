@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user-service.service';
 import { CreateUserDto } from './dto/user.dto';
-import { JoiValidationPipe } from 'src/pipes/validation.pipe';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('users')
 export class UserController {
     constructor(private userService: UserService) { }

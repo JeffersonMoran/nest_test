@@ -7,6 +7,7 @@ import { User } from './users/entities/user.entity';
 import { Photo } from './users/entities/photo.entity';
 import { UsersModule } from './users/users.module';
 import { auth } from './middlewares/auth.middleware';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { auth } from './middlewares/auth.middleware';
     autoLoadEntities: true,
     synchronize: process.env?.NODE_ENV !== 'prod' ? true : false,
   }),
-    UsersModule],
+    UsersModule,
+    ProductsModule],
   controllers: [AppController],
   providers: [AppService],
 })

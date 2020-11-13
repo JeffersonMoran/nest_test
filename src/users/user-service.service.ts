@@ -10,15 +10,17 @@ export class UserService {
         private usersRepository: Repository<User>,
     ) { }
 
-    findAll(): Promise<User[]> {
-        return this.usersRepository.find();
+    async findAll(): Promise<User[]> {
+        const users = await this.usersRepository.find();
+        console.log(users);
+        return users;
     }
 
     async create(body) {
         return await this.usersRepository.insert(body);
     }
 
-    findOne(id: string): Promise<User> {
+    async findOne(id: string): Promise<User> {
         return this.usersRepository.findOne(id);
     }
 

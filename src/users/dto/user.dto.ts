@@ -1,3 +1,10 @@
-export class CreateUserDTO {
+import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
+
+export class CreateUserDto {
+    @IsString()
+    @IsNotEmpty()
     name: string;
+
+    @IsNumber()
+    test: string;
 }
